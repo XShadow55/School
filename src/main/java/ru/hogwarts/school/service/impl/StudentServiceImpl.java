@@ -5,6 +5,8 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,8 +19,8 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public Student add(Long id, String name, int age) {
-        Student student = new Student(id,name,age);
+    public Student add(Student student) {
+
         count = count+1;
         studentMap.put(count,student);
         return student;
@@ -44,8 +46,13 @@ public class StudentServiceImpl implements StudentService {
         studentMap.remove(id);
         return student;
     }
-    @Override
-    public Map<Long, Student> filter(int age) {
-        return (Map<Long, Student>) studentMap.values().stream().filter(student -> student.getAge() == age);
+    public Collection<Student> filter(int age) {
+        ArrayList<Student> result = new ArrayList<>();
+        for (Student student : studentMap.values()) {
+            if (student.getAge() == age) {
+                result.add(student);
+            }
+        }
+        return result;
     }
 }

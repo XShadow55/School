@@ -5,40 +5,33 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
     private final Map<Long, Faculty> listMap = new HashMap<>();
-    private Long count = 0l;
+    private long count = 0;
 
     @Override
-    public Faculty add(Long id, String name, String color) {
-        Faculty faculty = new Faculty(id,name,color);
+    public Faculty add(Faculty faculty) {
+
         count = count+1;
         listMap.put(count,faculty);
         return faculty;
     }
 
     @Override
-    public Map<Long, Faculty> read() {
-        return listMap;
+    public Faculty read(Long id) {
+        return listMap.get(id);
     }
 
     @Override
-    public Faculty set(Long facultyId ,Long id, String name, String color) {
-        if (id != null) {
-            listMap.get(facultyId).setId(id);
+    public Faculty set(Faculty faculty) {
+        if (!listMap.containsKey(faculty.getId())) {
+            return null;
         }
-        if (name != null) {
-            listMap.get(facultyId).setName(name);
-        }
-        if (color != null) {
-            listMap.get(facultyId).setColor(color);
-        }
-        return listMap.get(facultyId);
+        listMap.put(faculty.getId(), faculty);
+        return faculty;
     }
 
     @Override
@@ -47,4 +40,15 @@ public class FacultyServiceImpl implements FacultyService {
         listMap.remove(id);
         return faculty;
     }
+    public Collection<Faculty> filter(String color) {
+        ArrayList<Faculty> result = new ArrayList<>();
+        for (Faculty faculty : listMap.values()) {
+            if (Objects.equals(faculty.getColor(), color)) {
+                result.add(faculty);
+            }
+        }
+        return result;
+    }
+
+
 }
