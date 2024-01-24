@@ -10,6 +10,6 @@ public interface StudentService {
     Student add(Student student);
     Student read(Long id);
     Student set(Student student);
-    Student remove(Long id);
+    void remove(Long id);
     Collection<Student> filter(int age);
 }

@@ -21,7 +21,7 @@ public class StudentController {
     public Student add(@RequestBody Student student) {
         return service.add(student);
     }
-    @GetMapping("/read")
+    @GetMapping("{id}")
     public ResponseEntity<Student> read(@PathVariable Long id) {
         Student student = service.read(id);
         if (student == null) {
@@ -30,7 +30,7 @@ public class StudentController {
         return ResponseEntity.ok(student);
 
     }
-    @PutMapping("{facultyId}")
+    @PutMapping
     public ResponseEntity<Student>  set(@RequestBody Student student) {
         Student foundStudent = service.set(student);
         if (foundStudent == null) {

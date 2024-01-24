@@ -9,7 +9,7 @@ public interface FacultyService {
     Faculty add(Faculty faculty);
     Faculty read(Long id);
     Faculty set(Faculty faculty);
-    Faculty remove(Long id);
+    void remove(Long id);
     Collection<Faculty> filter(String color);
 
 }
