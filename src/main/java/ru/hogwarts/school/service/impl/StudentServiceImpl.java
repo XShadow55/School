@@ -6,11 +6,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -50,5 +46,15 @@ public class StudentServiceImpl implements StudentService {
     }
     public Collection<Student> filter(int age) {
         return studentRepository.findByAge(age);
+    }
+
+    @Override
+    public Collection<Student> filterByAgeBetween(int min, int max) {
+        return studentRepository.finndByAgeBetween(min,max);
+    }
+
+    @Override
+    public Faculty findByFaculty(int id) {
+        return studentRepository.findByFaculty(id);
     }
 }

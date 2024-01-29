@@ -5,11 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+
+import static javax.management.Query.in;
 
 @RestController
 @RequestMapping("/faculty")
@@ -49,6 +52,20 @@ public class FacultyController {
     public ResponseEntity<Collection<Faculty>> filterFaculty(@RequestParam(required = false) String color) {
         if (color != null && !color.isBlank()) {
             return ResponseEntity.ok(service.filter(color));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
+    }
+    @GetMapping
+    public ResponseEntity<Collection<Faculty>> findByNameOrColorIgnoreCase(@RequestParam(required = false) String color,@RequestParam(required = false) String name) {
+        if (color != null && !color.isBlank()) {
+            return ResponseEntity.ok(service.findByNameOrColorIgnoreCase(color,name));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
+    }
+    @GetMapping
+    public ResponseEntity<Collection<Student>> findByStudents(@RequestParam int id) {
+        if (id  != 0) {
+            return ResponseEntity.ok(service.findStudents(id));
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
