@@ -51,12 +51,13 @@ public class StudentController {
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
-    @GetMapping
-    public ResponseEntity<Faculty> selectFaculty(@RequestParam int id) {
-        if (id > 0) {
-            return ResponseEntity.ok(service.findByFaculty(id));
-        }
-        return ResponseEntity.ok((Faculty) Collections.emptyList());
+    @GetMapping("find")
+    public  Collection<Student> findByAgeBetween(@RequestParam int min,@RequestParam int max){
+        return service.filterByAgeBetween(min,max);
+    }
+    @GetMapping("{id}/faculty")
+    public Faculty getFaculty(@PathVariable Long  id) {
+        return service.getFaculty(id);
     }
 
 }

@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 public interface FacultyRepository extends JpaRepository<Faculty,Long> {
     List<Faculty> findByColor(String color);
-    List<Faculty> findByNameOrColorIgnoreCase(String color, String name);
-    List<Student> findStudents(int id);
+    List<Faculty> findByNameIgnoreCaseOrColorIgnoreCase(String color, String name);
+
 
 }

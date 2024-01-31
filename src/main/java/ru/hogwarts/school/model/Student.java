@@ -65,4 +65,12 @@ public class Student {
                 ", age=" + age +
                 '}';
     }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
 }

@@ -15,7 +15,7 @@ import java.util.function.Function;
 
 public interface StudentRepository extends JpaRepository<Student,Long> {
     List<Student> findByAge(int age);
-    List<Student> finndByAgeBetween(int min,int max);
-    Faculty findByFaculty(int id);
+    List<Student> findByAgeBetween(int min,int max);
+
 
 }

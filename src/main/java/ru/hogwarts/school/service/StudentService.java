@@ -13,5 +13,5 @@ public interface StudentService {
     void remove(Long id);
     Collection<Student> filter(int age);
     Collection<Student> filterByAgeBetween(int min, int max);
-    Faculty findByFaculty(int id);
+    Faculty getFaculty(Long id);
 }

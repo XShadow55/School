@@ -13,6 +13,6 @@ public interface FacultyService {
     Faculty set(Faculty faculty);
     void remove(Long id);
     Collection<Faculty> filter(String color);
-    Collection<Faculty> findByNameOrColorIgnoreCase(String color, String name);
-    List<Student> findStudents(int id);
+    Collection<Faculty> findByNameIgnoreCaseOrColorIgnoreCase(String color, String name);
+    List<Student> getStudents(Long id);
 }

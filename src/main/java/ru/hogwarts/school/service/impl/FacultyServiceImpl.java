@@ -44,12 +44,14 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Collection<Faculty> findByNameOrColorIgnoreCase(String color, String name) {
-        return facultyRepository.findByNameOrColorIgnoreCase(color,name);
+    public Collection<Faculty> findByNameIgnoreCaseOrColorIgnoreCase(String color, String name) {
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(color,name);
     }
 
     @Override
-    public List<Student> findStudents(int id) {
-        return facultyRepository.findStudents(id);
+    public List<Student> getStudents(Long id) {
+        return facultyRepository.findById(id).map(Faculty::getStudents).orElse(null);
     }
+
+
 }
