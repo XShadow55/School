@@ -9,6 +9,7 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -19,8 +20,8 @@ public class StudentController {
         this.service = service;
     }
     @PostMapping
-    public Student add(@RequestBody Student student) {
-        return service.add(student);
+    public Student add(@RequestParam String name,@RequestParam Integer age) {
+        return service.add( name,  age);
     }
     @GetMapping("{id}")
     public ResponseEntity<Student> read(@PathVariable Long id) {
@@ -58,6 +59,18 @@ public class StudentController {
     @GetMapping("{id}/faculty")
     public Faculty getFaculty(@PathVariable Long  id) {
         return service.getFaculty(id);
+    }
+    @GetMapping("avarage")
+    public Integer averageAge() {
+        return service.averageAge();
+    }
+    @GetMapping("countStudent")
+    public Integer countStudent() {
+        return service.countStudent();
+    }
+    @GetMapping("lastedStudent")
+    public List<Student> lastedStudent() {
+        return service.lastedStudent();
     }
 
 }
