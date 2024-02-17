@@ -55,7 +55,7 @@ class StudentControllerTest {
         student.setName(name);
         student.setAge(age);
 
-        when(studentService.add(studentObject)).thenReturn(student);
+        when(studentService.add(studentObject.getName(),studentObject.getAge())).thenReturn(student);
 
 
         mockMvc.perform(MockMvcRequestBuilders
