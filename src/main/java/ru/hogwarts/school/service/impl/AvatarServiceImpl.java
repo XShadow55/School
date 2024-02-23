@@ -1,6 +1,8 @@
 package ru.hogwarts.school.service.impl;
 
 import ch.qos.logback.classic.spi.ConfiguratorRank;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Service
 @Transactional
 public class AvatarServiceImpl implements AvatarService {
+    Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
     private final StudentRepository studentRepository;
     private final AvatarRepository avatarRepository;
 //    @Value("${path.to.avatars.folder}")
@@ -34,11 +37,13 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public Avatar findAvatar(Long id) {
+        logger.info("Was invoked method for create avatar");
         return avatarRepository.findById(id).orElse(new Avatar());
     }
 
     @Override
     public void uploadAvatar(Long studentId, @org.jetbrains.annotations.NotNull MultipartFile avatarFile) throws IOException {
+        logger.info("The method was called to load avatars for students");
         Student student = studentRepository.getById(studentId);
         Path filePath = Path.of(avatarsDir, student + "." + getExtensions(Objects.requireNonNull(avatarFile.getOriginalFilename())));
         Files.createDirectories(filePath.getParent());
@@ -60,11 +65,13 @@ public class AvatarServiceImpl implements AvatarService {
         avatarRepository.save(avatar);
     }
     private String getExtensions(String fileName) {
+        logger.info("A method was called to get the extension of avatars");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
     @Override
     public List<Avatar> findAll(Integer number, Integer size) {
+        logger.info("A method was called to get all avatars");
         PageRequest pageRequest = PageRequest.of(number,size);
         return avatarRepository.findAll(pageRequest).getContent();
     }
