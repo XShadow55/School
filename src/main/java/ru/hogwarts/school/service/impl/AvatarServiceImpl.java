@@ -75,4 +75,5 @@ public class AvatarServiceImpl implements AvatarService {
         PageRequest pageRequest = PageRequest.of(number,size);
         return avatarRepository.findAll(pageRequest).getContent();
     }
+
 }

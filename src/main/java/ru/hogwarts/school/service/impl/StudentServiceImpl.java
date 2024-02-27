@@ -84,4 +84,9 @@ public class StudentServiceImpl implements StudentService {
         logger.info("A method was called to call the last students");
         return studentRepository.lastedStudent();
     }
+
+    @Override
+    public List<Student> listStudent() {
+        return studentRepository.findAll().stream().filter(student -> student.getName().toLowerCase().toCharArray()[0]=='a' || student.getName().toLowerCase().toCharArray()[0]=='а' ).toList();
+    }
 }

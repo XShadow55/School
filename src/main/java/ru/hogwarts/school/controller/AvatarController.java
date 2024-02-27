@@ -56,4 +56,10 @@ public class AvatarController {
         List<Avatar> list = avatarServis.findAll(pageNumber, pageSiza);
         return ResponseEntity.ok(list);
     }
+    @GetMapping("/sum")
+    public long calculateSum() {
+        long n = 1_000_000;
+        long sum = n * (n + 1) / 2;
+        return sum;
+    }
 }

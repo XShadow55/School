@@ -72,5 +72,9 @@ public class StudentController {
     public List<Student> lastedStudent() {
         return service.lastedStudent();
     }
+    @GetMapping("findFilerStudent")
+    public  Collection<Student> findByListStudent(){
+        return service.listStudent();
+    }
 
 }

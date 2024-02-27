@@ -10,6 +10,7 @@ import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import static javax.management.Query.in;
@@ -62,5 +63,9 @@ public class FacultyController {
     @GetMapping("{id}/faculty")
     public Collection<Student> getStudents(@PathVariable Long id){
         return service.getStudents(id);
+    }
+    @GetMapping("lengthFaculty")
+    public String  lengthFaculty(){
+        return service.lengthFaculty();
     }
 }

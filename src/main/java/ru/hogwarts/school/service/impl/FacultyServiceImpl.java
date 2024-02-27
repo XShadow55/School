@@ -62,5 +62,11 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyRepository.findById(id).map(Faculty::getStudents).orElse(null);
     }
 
+    @Override
+    public String    lengthFaculty() {
+        OptionalInt list = facultyRepository.findAll().stream().mapToInt(faculty -> faculty.getName().length())
+                .max();
 
+        return facultyRepository.findAll().stream().filter(faculty -> faculty.getName().length() ==list.getAsInt()).toList().get(0).getName();
+    }
 }
