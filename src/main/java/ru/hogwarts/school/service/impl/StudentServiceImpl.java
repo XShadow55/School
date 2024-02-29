@@ -1,6 +1,5 @@
 package ru.hogwarts.school.service.impl;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -88,5 +88,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> listStudent() {
         return studentRepository.findAll().stream().filter(student -> student.getName().toLowerCase().toCharArray()[0]=='a' || student.getName().toLowerCase().toCharArray()[0]=='а' ).toList();
+    }
+
+    @Override
+    public Double averageAgeStudent() {
+        return studentRepository.findAll().stream().mapToInt(Student::getAge).average().orElse(0);
     }
 }

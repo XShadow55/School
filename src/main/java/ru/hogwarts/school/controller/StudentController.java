@@ -76,5 +76,9 @@ public class StudentController {
     public  Collection<Student> findByListStudent(){
         return service.listStudent();
     }
+    @GetMapping("avarage_age")
+    public Double averageAgeStudent() {
+        return service.averageAgeStudent();
+    }
 
 }
