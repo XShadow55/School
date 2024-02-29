@@ -80,5 +80,46 @@ public class StudentController {
     public Double averageAgeStudent() {
         return service.averageAgeStudent();
     }
+    @GetMapping("print-parallel")
+    public  void potok(){
+        List<Student> main = service.allStudent();
+        System.out.println(main.get(0).getName());
+        System.out.println(main.get(1).getName());
 
+
+        new Thread(() -> {
+            System.out.println(main.get(2).getName());
+            System.out.println(main.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(main.get(4).getName());
+            System.out.println(main.get(5).getName());
+        }).start();
+    }
+    @GetMapping("/print-synchronized")
+    public void printStudentsSynchronized() {
+        List<Student> students = service.allStudent();
+
+                synchronizedPrint(students.get(0).getName());
+        synchronizedPrint(students.get(1).getName());
+
+
+        new Thread(() -> {
+            synchronizedPrint(students.get(2).getName());
+            synchronizedPrint(students.get(3).getName());
+        }).start();
+
+
+        new Thread(() -> {
+            synchronizedPrint(students.get(4).getName());
+            synchronizedPrint(students.get(5).getName());
+        }).start();
+    }
+
+    private synchronized void synchronizedPrint(String message) {
+        System.out.println(message);
+    }
 }
+
+

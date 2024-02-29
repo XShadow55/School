@@ -94,4 +94,9 @@ public class StudentServiceImpl implements StudentService {
     public Double averageAgeStudent() {
         return studentRepository.findAll().stream().mapToInt(Student::getAge).average().orElse(0);
     }
+
+    @Override
+    public List<Student> allStudent() {
+        return studentRepository.findAll();
+    }
 }

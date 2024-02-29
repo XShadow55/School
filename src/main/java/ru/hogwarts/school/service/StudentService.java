@@ -22,4 +22,6 @@ public interface StudentService {
     List<Student> lastedStudent();
     List<Student> listStudent();
     Double averageAgeStudent();
+    List<Student> allStudent();
+
 }
