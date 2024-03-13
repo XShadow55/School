@@ -86,6 +86,7 @@ public class StudentController {
     public  Collection<Student> findByListStudent(){
         return service.listStudent();
     }
+    // Нахождение среднего возроста студентов с использованием стрима
     @GetMapping("avarage_age")
     public Double averageAgeStudent() {
         return service.averageAgeStudent();
