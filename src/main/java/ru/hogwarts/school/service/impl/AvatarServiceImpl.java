@@ -26,7 +26,7 @@ public class AvatarServiceImpl implements AvatarService {
     Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
     private final StudentRepository studentRepository;
     private final AvatarRepository avatarRepository;
-    private String  avatarsDir = "C://Users/lopat/IdeaProjects/school/src/main/resources/static";
+    private Path  avatarsDir ;
 
 
     public AvatarServiceImpl(StudentRepository studentRepository, AvatarRepository avatarRepository) {
@@ -43,6 +43,8 @@ public class AvatarServiceImpl implements AvatarService {
     @Override
     public void uploadAvatar(Long studentId, @org.jetbrains.annotations.NotNull MultipartFile avatarFile) throws IOException {
         logger.info("The method was called to load avatars for students");
+        // получение пути к загружаемому файлу
+        avatarsDir = Paths.get(String.valueOf(avatarFile)).toAbsolutePath();
         Student student = studentRepository.getById(studentId);
         Path filePath = Path.of(avatarsDir, student + "." + getExtensions(Objects.requireNonNull(avatarFile.getOriginalFilename())));
         Files.createDirectories(filePath.getParent());
