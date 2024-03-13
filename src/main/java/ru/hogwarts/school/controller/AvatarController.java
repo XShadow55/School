@@ -25,13 +25,13 @@ public class AvatarController {
     public AvatarController(AvatarService avatarServis) {
         this.avatarServis = avatarServis;
     }
-    
+    // Загразка изображения для студента
     @PostMapping(value = "/{studentId}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId, @RequestParam MultipartFile avatar) throws IOException {
         avatarServis.uploadAvatar(studentId, avatar);
         return ResponseEntity.ok().build();
     }
-    
+    // Чтение файла из базы данных
     @GetMapping(value = "/{id}/avatar-from-db")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long id) {
         Avatar avatar = avatarServis.findAvatar(id);
@@ -40,7 +40,7 @@ public class AvatarController {
         headers.setContentLength(avatar.getData().length);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
     }
-    
+    // Чтение файла из файла
     @GetMapping(value = "/{id}/avatar-from-file")
     public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException{
         Avatar avatar = avatarServis.findAvatar(id);
@@ -53,7 +53,7 @@ public class AvatarController {
             is.transferTo(os);
         }
     }
-    
+    // Получение всех аватаров
     @GetMapping()
     public ResponseEntity<List<Avatar>>findAllAvatars(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSiza) throws IOException {
         List<Avatar> list = avatarServis.findAll(pageNumber, pageSiza);
