@@ -6,13 +6,12 @@ import jakarta.persistence.*;
 public class Avatar {
     @Id
     @GeneratedValue
-
     private Long id;
     private String filePath;
     private long fileSize;
     private String mediaType;
-
     private byte[] data;
+    // создание привязанности аватара и студента
     @OneToOne
     @JoinColumn(name = "student_id")
     private Student student;
