@@ -81,7 +81,7 @@ public class StudentController {
     public List<Student> lastedStudent() {
         return service.lastedStudent();
     }
-    
+    // Получение списка студентов сортированных по первой букве имени как русских так и английских
     @GetMapping("findFilerStudent")
     public  Collection<Student> findByListStudent(){
         return service.listStudent();
