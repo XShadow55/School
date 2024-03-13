@@ -13,6 +13,7 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
+    // создание зависимости студентов от факультета
     @OneToMany(mappedBy = "faculty")
     @JsonIgnore
     private List<Student> students;
