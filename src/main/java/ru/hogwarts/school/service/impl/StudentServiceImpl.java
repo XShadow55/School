@@ -87,12 +87,12 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> listStudent() {
         return studentRepository.findAll().stream().filter(student -> student.getName().toLowerCase().toCharArray()[0]=='a' || student.getName().toLowerCase().toCharArray()[0]=='а' ).toList();
     }
-// нахождение среднего возроста студентов
+// Нахождение среднего возроста студентов
     @Override
     public Double averageAgeStudent() {
         return studentRepository.findAll().stream().mapToInt(Student::getAge).average().orElse(0);
     }
-// получение всех студентов 
+// Получение всех студентов 
     @Override
     public List<Student> allStudent() {
         return studentRepository.findAll();
