@@ -3,8 +3,13 @@ package ru.hogwarts.school.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -15,10 +20,10 @@ public class StudentController {
         this.service = service;
     }
     @PostMapping
-    public Student add(@RequestParam Long id,@RequestParam String name,@RequestParam int age) {
-        return service.add(id, name, age);
+    public Student add(@RequestParam String name,@RequestParam Integer age) {
+        return service.add( name,  age);
     }
-    @GetMapping("/read")
+    @GetMapping("{id}")
     public ResponseEntity<Student> read(@PathVariable Long id) {
         Student student = service.read(id);
         if (student == null) {
@@ -40,4 +45,81 @@ public class StudentController {
         service.remove(id);
         return ResponseEntity.ok().build();
     }
+    @GetMapping
+    public ResponseEntity<Collection<Student>> filterStudents(@RequestParam int age) {
+        if (age > 0) {
+            return ResponseEntity.ok(service.filter(age));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
+    }
+    @GetMapping("find")
+    public  Collection<Student> findByAgeBetween(@RequestParam int min,@RequestParam int max){
+        return service.filterByAgeBetween(min,max);
+    }
+    @GetMapping("{id}/faculty")
+    public Faculty getFaculty(@PathVariable Long  id) {
+        return service.getFaculty(id);
+    }
+    @GetMapping("avarage")
+    public Integer averageAge() {
+        return service.averageAge();
+    }
+    @GetMapping("countStudent")
+    public Integer countStudent() {
+        return service.countStudent();
+    }
+    @GetMapping("lastedStudent")
+    public List<Student> lastedStudent() {
+        return service.lastedStudent();
+    }
+    @GetMapping("findFilerStudent")
+    public  Collection<Student> findByListStudent(){
+        return service.listStudent();
+    }
+    @GetMapping("avarage_age")
+    public Double averageAgeStudent() {
+        return service.averageAgeStudent();
+    }
+    @GetMapping("print-parallel")
+    public  void potok(){
+        List<Student> main = service.allStudent();
+        System.out.println(main.get(0).getName());
+        System.out.println(main.get(1).getName());
+
+
+        new Thread(() -> {
+            System.out.println(main.get(2).getName());
+            System.out.println(main.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(main.get(4).getName());
+            System.out.println(main.get(5).getName());
+        }).start();
+    }
+    @GetMapping("/print-synchronized")
+    public void printStudentsSynchronized() {
+        List<Student> students = service.allStudent();
+
+                synchronizedPrint(students.get(0).getName());
+        synchronizedPrint(students.get(1).getName());
+
+
+        new Thread(() -> {
+            synchronizedPrint(students.get(2).getName());
+            synchronizedPrint(students.get(3).getName());
+        }).start();
+
+
+        new Thread(() -> {
+            synchronizedPrint(students.get(4).getName());
+            synchronizedPrint(students.get(5).getName());
+        }).start();
+    }
+
+    private synchronized void synchronizedPrint(String message) {
+        System.out.println(message);
+    }
 }
+
+
