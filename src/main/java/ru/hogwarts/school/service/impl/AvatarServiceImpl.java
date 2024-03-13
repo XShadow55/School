@@ -26,7 +26,6 @@ public class AvatarServiceImpl implements AvatarService {
     Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
     private final StudentRepository studentRepository;
     private final AvatarRepository avatarRepository;
-//    @Value("${path.to.avatars.folder}")
     private String  avatarsDir = "C://Users/lopat/IdeaProjects/school/src/main/resources/static";
 
 
@@ -34,13 +33,13 @@ public class AvatarServiceImpl implements AvatarService {
         this.studentRepository = studentRepository;
         this.avatarRepository = avatarRepository;
     }
-
+    // Поиск аватара по его id
     @Override
     public Avatar findAvatar(Long id) {
         logger.info("Was invoked method for create avatar");
         return avatarRepository.findById(id).orElse(new Avatar());
     }
-
+// загрузка аватара для студента
     @Override
     public void uploadAvatar(Long studentId, @org.jetbrains.annotations.NotNull MultipartFile avatarFile) throws IOException {
         logger.info("The method was called to load avatars for students");
@@ -64,11 +63,12 @@ public class AvatarServiceImpl implements AvatarService {
         avatar.setData(avatarFile.getBytes());
         avatarRepository.save(avatar);
     }
+    // Вызов расширения аватара у студента
     private String getExtensions(String fileName) {
         logger.info("A method was called to get the extension of avatars");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
-
+// получает всех аватаров
     @Override
     public List<Avatar> findAll(Integer number, Integer size) {
         logger.info("A method was called to get all avatars");
