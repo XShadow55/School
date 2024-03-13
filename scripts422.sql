@@ -3,6 +3,7 @@ create table human(
     name_human text,
     age integer,
     has_license boolean,
+    // ссылка на id машины
     car_id integer references car(id)
 );
 
